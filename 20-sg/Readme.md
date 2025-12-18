@@ -1,6 +1,5 @@
-# AWS Architecture with Bastion, Load Balancers, EC2, and RDS 
+# 📊 AWS Security Group Architecture Diagram with Bastion, Load Balancers, EC2, and RDS 
 
-## 📊 Architecture Diagram 
 ![secuirty group flow with other components](img/sg.webp)
 
 # 🔒 AWS Infrastructure Security Group Overview
