@@ -1,10 +1,10 @@
 #  About Security Groups in AWS.
 Its a virtual firewall that controls inbound and outbound traffic at the Instance level. When you launch an EC2 instance, it automatically comes with a security group. 
 By default, security groups block/denies all inbound traffic which means ( No ports are open, no IP addresses are allowed in) But allows all outbound traffic.
-* example: 
-  security group as a doorman for EC2 instance:
-    The doorman checks an approved list before letting anyone in. But once you're inside, you're free to leave—outbound traffic isn't checked.
-* Note: 
+### example: 
+security group as a doorman for EC2 instance:
+The doorman checks an approved list before letting anyone in. But once you're inside, you're free to leave—outbound traffic isn't checked.
+### Note: 
 - However, all outbound traffic is allowed by default. You can modify the security group to allow specific types of inbound traffic, such as messages from a frontend instance or 
 the internet.
 - Security groups are stateful (remembers state)	if a request is allowed in, the response is automatically allowed out.
