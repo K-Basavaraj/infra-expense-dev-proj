@@ -45,7 +45,8 @@ internet which is outside vpc without exposing them to inbound traffic.
 A NAT (Network Address Translation) Gateway allows instances in private subnets to initiate outbound connections while blocking inbound connections that are not requested.
 
 ## When you create a NAT Gateway in AWS, you must choose a connectivity type:
-- (default)A public NAT Gateway: allows private subnet instances to access the Internet, but prevents the Internet from directly accessing those instances.
+#### (default)A public NAT Gateway: 
+allows private subnet instances to access the Internet, but prevents the Internet from directly accessing those instances.
 ### How it works
 * NAT Gateway Created inside a public subnet
 * Must be associated with an Elastic IP (EIP)
@@ -58,7 +59,9 @@ Private EC2 → Public NAT Gateway → Internet Gateway → Internet
 * Instances can send traffic out (updates, downloads, APIs) but cannot receive inbound connections that they did not request.
 * NAT Gateway itself is not directly accessible from the Internet. advanced use a public NAT Gateway to connect Other VPCs, On-premises networks In this case, traffic is routed via, Transit Gateway (TGW) or Virtual Private Gateway (VGW) instead of the Internet Gateway.
 ---
-- Private NAT Gateway: A private NAT Gateway allows private subnet instances to connect to other VPCs or on-premises networks, without Internet access.
+#### Private NAT Gateway: 
+A private NAT Gateway allows private subnet instances to connect to other VPCs or on-premises networks, without Internet access.
+
 ### How it works
 NAT Gateway created inside a private subnet, No Elastic IP
 Used only for internal/private connectivity
