@@ -15,8 +15,8 @@ Instead of users or applications directly hitting servers, they talk to the Load
 * No host-based or path-based routing
 
 #### Used when:
-– Low latency is required  
-– TCP/UDP traffic (databases, messaging, real-time apps)
+* Low latency is required  
+* TCP/UDP traffic (databases, messaging, real-time apps)
 ----
 # TCP vs UDP
 ## TCP (Transmission Control Protocol)
@@ -24,32 +24,28 @@ Instead of users or applications directly hitting servers, they talk to the Load
 • Reliable – guarantees data delivery
 • Maintains order of packets
 • Slower compared to UDP due to checks and acknowledgements
-
 #### Used when:
 – Data accuracy is critical  
 – Missing data is NOT acceptable  
-
 #### Examples:
-– HTTP / HTTPS  
-– SSH  
-– FTP  
-– Database connections
+* HTTP / HTTPS  
+* SSH  
+* FTP  
+* Database connections
 
 ## UDP (User Datagram Protocol)
 • Connectionless (no handshake)
 • Faster, but NOT reliable
 • No guarantee of delivery or order
 • Lower latency
-
 #### Used when:
 – Speed is more important than accuracy  
 – Small data loss is acceptable  
-
 #### Examples:
-– DNS
-– Video streaming  
-– Online gaming  
-– Voice calls (VoIP)  
+* DNS
+* Video streaming  
+* Online gaming  
+* Voice calls (VoIP)  
 ---
 
 ## Application Load Balancer (ALB) 
