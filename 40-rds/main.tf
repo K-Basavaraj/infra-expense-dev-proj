@@ -66,14 +66,15 @@ module "db" {
 
 
 module "records" {
-  source  = "terraform-aws-modules/route53/aws//modules/records"
+  source    = "terraform-aws-modules/route53/aws//modules/records"
+  version   = "5.0.0"
   zone_name = var.zone_name
 
   records = [
     {
-      name    = "mysql-${var.environment}" #mysql-dev.basavadevops81s.online
-      type    = "CNAME"
-      ttl     = 1
+      name = "mysql-${var.environment}" #mysql-dev.basavadevops81s.online
+      type = "CNAME"
+      ttl  = 1
       records = [
         module.db.db_instance_address #RDS endpoint URL to point this DNS record (mysql-basavadevops81s.online)
       ]
