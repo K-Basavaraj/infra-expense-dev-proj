@@ -1,7 +1,7 @@
 module "app_alb" {
   source                = "terraform-aws-modules/alb/aws"
   internal              = true
-  name                  = "${local.resource_name}-app-alb"  #expense-dev-app-alb
+  name                  = "${local.resource_name}-app-alb" #expense-dev-app-alb
   vpc_id                = local.vpc_id
   subnets               = local.private_subnet_ids
   security_groups       = [data.aws_ssm_parameter.app_alb_sg_id.value]
@@ -10,7 +10,7 @@ module "app_alb" {
     var.common_tags,
     var.app_alb_tags
   )
-   enable_deletion_protection = false
+  enable_deletion_protection = false
 }
 
 
@@ -31,15 +31,16 @@ resource "aws_lb_listener" "http" {
 }
 
 module "records" {
-  source  = "terraform-aws-modules/route53/aws//modules/records"
+  source    = "terraform-aws-modules/route53/aws//modules/records"
+  version   = "5.0.0"
   zone_name = var.zone_name
   records = [
     {
-      name    = "*.app-${var.environment}" #*.app-dev.basavadevops81s.online
-      type    = "A"
-      alias   = {
+      name = "*.app-${var.environment}" #*.app-dev.basavadevops81s.online
+      type = "A"
+      alias = {
         name    = module.app_alb.dns_name #this dns_name fetching from cutom module output
-        zone_id = module.app_alb.zone_id #this zoneid fetching from cutom module output
+        zone_id = module.app_alb.zone_id  #this zoneid fetching from cutom module output
       }
       allow_overwrite = true
     }
