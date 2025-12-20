@@ -1,3 +1,34 @@
+# About the VPC Module
+This project uses a **custom Terraform VPC module** to create and manage the VPC
+resources in a reusable and consistent way.
+
+Instead of defining VPC resources repeatedly, the module is reused across
+environments (dev, qa, prod) to maintain standard networking architecture.
+
+## Module Source
+
+The VPC module is sourced from the following GitHub repository:
+```
+git::https://github.com/K-Basavaraj/Terraform-aws-vpc.git?ref=main
+```
+## Why a Custom VPC Module?
+• Promotes code reusability  
+• Ensures consistent VPC design across environments  
+• Reduces duplication and human error  
+• Makes the infrastructure easier to maintain and scale  
+
+---
+## How It Is Used in This Project
+• The module creates core networking components such as:
+  – VPC  
+  – Subnets (public and private)  
+  – Route tables  
+  – Internet Gateway / NAT Gateway (if enabled)
+
+• Environment-specific values are passed as input variables while the module
+logic remains unchanged.
+
+---
 # About Virtual private cloud(VPC) in AWS? 
 A VPC is a logically isolated network in AWS Cloud. where you launch your aws resources (EC2, RDS, ALB, etc.) in a virtual network that you define. 
 
