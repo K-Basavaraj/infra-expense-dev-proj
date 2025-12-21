@@ -78,3 +78,26 @@ A Target Group: Registers/Holds backend  EC2 instances, Performs health checks, 
 **Why it matters:**
 * Target Groups enable health-based routing and zero-downtime deployments.
 ---
+## Deployment Approaches
+* **Approach 1**: Direct Deployment on Running Servers.
+    * Create EC2 instances
+    * Run Ansible on live servers
+    * Stop service → update → restart
+* Drawbacks:
+    * Downtime
+    * Risky updates
+    * Slow scaling
+
+* **Approach 2**: Image-Based Deployment (Used Here)
+    * Configure once
+    * Create AMI
+    * Scale using copies of AMI
+    * No changes on live servers
+* Why chose Approach 2 because it provides:
+    * Zero downtime deployments
+    * Safe rolling updates
+    * Fast auto scaling
+    * Immutable infrastructure
+    * Production-ready design
+**Golden rule**:
+Never update running production servers. Always update images.
