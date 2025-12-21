@@ -145,20 +145,92 @@ ALB Listener Rule
 This project uses a Rolling Update strategy to deploy new backend versions without any downtime.
 When a new backend version is deployed (via a new AMI and Launch Template version), the Auto Scaling Group updates instances gradually, not all at once.
 * Example: 4 instances are running, when New version deployed as follows: 
-  * Launch 1 new instance using the updated Launch Template
-  * Wait until the instance passes Target Group health checks
-  * Terminate 1 old instance
-  * Repeat the process until all instances are replaced
+  * Launch 1 new instance using the updated Launch Template.
+  * Wait until the instance passes Target Group health checks.
+  * Terminate 1 old instance.
+  * Repeat the process until all instances are replaced.
 
 * Key configuration:
 Minimum healthy instances: 50%, and ensures at least 2 instances are always serving traffic.
-  * Rolling update trigger: Launch Template version change(or)Triggered by Launch Template changes
-  * Health validation: ALB Target Group health checks
+  * Rolling update trigger: Launch Template version change(or)Triggered by Launch Template changes.
+  * Health validation: ALB Target Group health checks.
 
 * **Why This Strategy Is Used**
-    * Ensures zero downtime during deployments
-    * Prevents traffic drops and service interruptions
-    * Easy to manage using native Auto Scaling Group behavior
+    * Ensures zero downtime during deployments.
+    * Prevents traffic drops and service interruptions.
+    * Easy to manage using native Auto Scaling Group behavior.
 ---
+## ⚙️ Terraform Special Concepts Used
+* 1) null_resource: is used when Terraform needs to trigger an action like running a script, but there is no actual infrastructure resource to manage.
+**What it is used for in this project:**
+ * Run shell scripts after EC2 instance creation.
+ * Trigger provisioning logic when backend instances are ready.
+ * Perform temporary or one-time operational tasks.
+**Why it is used:**
+  * Allows execution of actions that are outside Terraform’s declarative model.
+  * Helps coordinate deployment steps that depend on infrastructure readiness.
+Note: null_resource is used carefully and minimally, as it is not ideal for long-term state management.
 
+* 2) Provisioners: used to configure instances after they are created.
+Terraform best practice is to avoid heavy configuration in provisioners, but they are acceptable for bootstrapping and integration tasks.
+    * file – Copy backend.sh to EC2.
+    * remote-exec – Executes the backend setup script on the EC2 instance.
+    * local-exec – Runs AWS CLI commands locally (for orchestration or integration steps).
+--- 
+## Ansible & Shell Integration
+This project uses a combination of Shell scripting and Ansible (pull-based) to bootstrap and configure backend instances.
+Shell scripts purpose is to run immediately on a fresh instance and require no dependencies, making them ideal for initial setup.
+* 1) **Why Shell Script?**
+Shell scripting is used for lightweight bootstrapping tasks.
+* Responsibilities:
+ * Install required system packages
+ * Install Ansible on the instance
+ * Trigger the Ansible pull process
 
+* 2) **Why Ansible Pull?**
+Ansible pull allows each instance to configure itself by pulling configuration from a Git repository.
+* Reasons for choosing Ansible Pull:
+ * No need for a central Ansible control server
+ * Each EC2 instance is self-sufficient
+ * Scales naturally with Auto Scaling Groups
+ * Well-suited for AMI-based deployments
+* This approach works seamlessly when instances are frequently created and destroyed by ASG.
+
+## Flow:
+```
+Terraform
+   ↓
+Shell Script (Bootstrap)
+   ↓
+Ansible Pull
+   ↓
+Backend Application Configured
+```
+---
+## Final Flow Summary
+```
+Route53
+  ↓
+Application Load Balancer
+  ↓
+Listener
+  ↓
+Rule (host-based)
+  ↓
+Target Group
+  ↓
+Health Check
+  ↓
+Auto Scaling Group Instance
+```
+## Conclusion
+**This backend setup demonstrates:**
+  * Immutable infrastructure
+  * Zero downtime deployments
+  * Safe scaling
+  * Clean separation of concerns
+* Terraform provisions infrastructure
+* Ansible configures once
+* AMI captures state
+* ASG scales safely
+This is production-grade backend architecture.
