@@ -99,5 +99,5 @@ A Target Group: Registers/Holds backend  EC2 instances, Performs health checks, 
     * Fast auto scaling
     * Immutable infrastructure
     * Production-ready design
-**Golden rule**:
+* **Golden rule**:
 Never update running production servers. Always update images.
