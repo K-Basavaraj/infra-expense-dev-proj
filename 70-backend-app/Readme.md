@@ -128,15 +128,15 @@ ALB Listener Rule
 ```
 ---
 ## Step-by-Step Implementation
-* Step 1: Create Temporary Backend EC2, Created only for building the AMI, Not exposed to users, Located in private subnet.
-* Step 2: Configure Backend Using Ansible (Pull Based), Terraform copies backend.sh, Script installs Ansible, Uses ansible-pull to fetch playbooks
+* **Step 1**: Create Temporary Backend EC2, Created only for building the AMI, Not exposed to users, Located in private subnet.
+* **Step 2**: Configure Backend Using Ansible (Pull Based), Terraform copies backend.sh, Script installs Ansible, Uses ansible-pull to fetch playbooks
 👉 Ansible roles repo used:
 ```
 🔗 https://github.com/K-Basavaraj/expense-anisble-terraform-proj
 ```
-* Step 3: Stop the Instance: Why because,  it Ensure filesystem consistency, Avoid partial configurations in AMI.
-* Step 4: Take the AMI, Captures fully configured backend, This AMI becomes the source of truth.
-* Step 5: Delete Temporary Instance, no longer needed to Saves cost and Prevents misuse.
-* Step 6: Create Target Group, Backend listens on port 8080, Health check path /health, Only healthy instances receive traffic.
-* Step 7: Create Launch Template, Uses the new AMI, Any change → new version
-* Step 8: Create Auto Scaling Group, Minimum instances always running, Automatically replaces unhealthy instances and Connected to target group
+* **Step 3**: Stop the Instance: Why because,  it Ensure filesystem consistency, Avoid partial configurations in AMI.
+* **Step 4**: Take the AMI, Captures fully configured backend, This AMI becomes the source of truth.
+* **Step 5**: Delete Temporary Instance, no longer needed to Saves cost and Prevents misuse.
+* **Step 6**: Create Target Group, Backend listens on port 8080, Health check path /health, Only healthy instances receive traffic.
+* **Step 7**: Create Launch Template, Uses the new AMI, Any change → new version
+* **Step 8**: Create Auto Scaling Group, Minimum instances always running, Automatically replaces unhealthy instances and Connected to target group
