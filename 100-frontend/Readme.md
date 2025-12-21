@@ -1,8 +1,8 @@
-# Frontend Application Infrastructure (100-frontend)
+# Frontend Application Infrastructure 
 This folder provisions frontend infrastructure using Terraform, following the same AMI-based and Auto Scaling approach used for the backend.
-## Reference: 70-backend-app
-The frontend follows the same deployment pattern as 70-backend-app including AMI creation, launch templates, Auto Scaling Groups, and rolling updates.
-Only frontend-specific differences are explained here to avoid duplication.
+## Reference:
+* The frontend follows the same deployment pattern as 70-backend-app including AMI creation, launch templates, Auto Scaling Groups, and rolling updates.
+* Only frontend-specific differences are explained here to avoid duplication.
 ---
 ## Common Deployment Flow (Same as Backend)
 * Temporary EC2 creation
