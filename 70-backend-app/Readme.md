@@ -16,7 +16,7 @@ This folder implements a production-grade backend deployment strategy using:
 ## Quick Navigation (Skip What You Already Know)
 - [Core AWS Concepts](#core-aws-concepts)
 - [Deployment Approaches](#deployment-approaches)
-- [Why We Chose This Approach](#why-we-chose-this-approach)
+- [Why We Chose This Approach 2](#why-we-chose-this-approach-2)
 - [High-Level Flow](#high-level-flow)
 - [Step-by-Step Implementation](#step-by-step-implementation)
 - [Rolling Update Strategy](#rolling-update-strategy)
@@ -93,11 +93,39 @@ A Target Group: Registers/Holds backend  EC2 instances, Performs health checks, 
     * Create AMI
     * Scale using copies of AMI
     * No changes on live servers
-* Why chose Approach 2 because it provides:
+--- 
+## Why We Chose This Approach 2: 
+it provides
     * Zero downtime deployments
     * Safe rolling updates
     * Fast auto scaling
     * Immutable infrastructure
     * Production-ready design
 * **Golden rule**:
-Never update running production servers. Always update images.
+Never update running production servers. Always update images(AMI).
+---
+High-Level Flow
+```
+Terraform
+  ↓
+Temporary Backend EC2
+  ↓
+Shell Script
+  ↓
+Ansible Pull (Configure Backend)
+  ↓
+Stop Instance
+  ↓
+Create AMI
+  ↓
+Delete Builder Instance
+  ↓
+Launch Template
+  ↓
+Auto Scaling Group
+  ↓
+Target Group
+  ↓
+ALB Listener Rule
+```
+---
