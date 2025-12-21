@@ -92,7 +92,7 @@ A Target Group: Registers/Holds backend  EC2 instances, Performs health checks, 
     * Create AMI
     * Scale using copies of AMI
     * No changes on live servers
-* why we Chose This Approach 2 is, it provides:
+* **why we Chose This Approach 2 is, it provides:**
     * Zero downtime deployments
     * Safe rolling updates
     * Fast auto scaling
