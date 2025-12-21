@@ -161,7 +161,8 @@ Minimum healthy instances: 50%, and ensures at least 2 instances are always serv
     * Easy to manage using native Auto Scaling Group behavior.
 ---
 ## ⚙️ Terraform Special Concepts Used
-#### 1) null_resource: is used when Terraform needs to trigger an action like running a script, but there is no actual infrastructure resource to manage.
+#### 1) null_resource: 
+used when Terraform needs to trigger an action like running a script, but there is no actual infrastructure resource to manage.
 **What it is used for in this project:**
  * Run shell scripts after EC2 instance creation.
  * Trigger provisioning logic when backend instances are ready.
@@ -171,11 +172,12 @@ Minimum healthy instances: 50%, and ensures at least 2 instances are always serv
   * Helps coordinate deployment steps that depend on infrastructure readiness.
 Note: null_resource is used carefully and minimally, as it is not ideal for long-term state management.
 
-#### 2) Provisioners: used to configure instances after they are created.
+#### 2) Provisioners: 
+used to configure instances after they are created.
 Terraform best practice is to avoid heavy configuration in provisioners, but they are acceptable for bootstrapping and integration tasks.
-    * file – Copy backend.sh to EC2.
-    * remote-exec – Executes the backend setup script on the EC2 instance.
-    * local-exec – Runs AWS CLI commands locally (for orchestration or integration steps).
+* file – Copy backend.sh to EC2.
+* remote-exec – Executes the backend setup script on the EC2 instance.
+* local-exec – Runs AWS CLI commands locally (for orchestration or integration steps).
 --- 
 ## Ansible & Shell Integration
 This project uses a combination of Shell scripting and Ansible (pull-based) to bootstrap and configure backend instances.
