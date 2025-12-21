@@ -16,7 +16,7 @@ This folder implements a production-grade backend deployment strategy using:
 ## Quick Navigation (Skip What You Already Know)
 - [Core AWS Concepts](#core-aws-concepts)
 - [Deployment Approaches](#deployment-approaches)
-- [Why We Chose This Approach 2](#why-we-chose-this-approach-2)
+- [Choosed This Approach 2 it provides](#choosed-this-approach-2-it-provides)
 - [High-Level Flow](#high-level-flow)
 - [Step-by-Step Implementation](#step-by-step-implementation)
 - [Rolling Update Strategy](#rolling-update-strategy)
@@ -94,8 +94,7 @@ A Target Group: Registers/Holds backend  EC2 instances, Performs health checks, 
     * Scale using copies of AMI
     * No changes on live servers
 --- 
-## Why We Chose This Approach 2: 
-it provides
+## Choosed This Approach 2 it provides:
     * Zero downtime deployments
     * Safe rolling updates
     * Fast auto scaling
@@ -104,7 +103,7 @@ it provides
 * **Golden rule**:
 Never update running production servers. Always update images(AMI).
 ---
-High-Level Flow
+## High-Level Flow
 ```
 Terraform
   ↓
