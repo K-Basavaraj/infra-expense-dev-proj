@@ -16,7 +16,6 @@ This folder implements a production-grade backend deployment strategy using:
 ## Quick Navigation (Skip What You Already Know)
 - [Core AWS Concepts](#core-aws-concepts)
 - [Deployment Approaches](#deployment-approaches)
-- [Choosed This Approach 2 it provides](#choosed-this-approach-2-it-provides)
 - [High-Level Flow](#high-level-flow)
 - [Step-by-Step Implementation](#step-by-step-implementation)
 - [Rolling Update Strategy](#rolling-update-strategy)
@@ -93,8 +92,7 @@ A Target Group: Registers/Holds backend  EC2 instances, Performs health checks, 
     * Create AMI
     * Scale using copies of AMI
     * No changes on live servers
---- 
-## Choosed This Approach 2 it provides:
+* why we Chose This Approach 2 is, it provides:
     * Zero downtime deployments
     * Safe rolling updates
     * Fast auto scaling
