@@ -140,3 +140,25 @@ ALB Listener Rule
 * **Step 6**: Create Target Group, Backend listens on port 8080, Health check path /health, Only healthy instances receive traffic.
 * **Step 7**: Create Launch Template, Uses the new AMI, Any change → new version
 * **Step 8**: Create Auto Scaling Group, Minimum instances always running, Automatically replaces unhealthy instances and Connected to target group
+---
+## Rolling Update Strategy
+This project uses a Rolling Update strategy to deploy new backend versions without any downtime.
+When a new backend version is deployed (via a new AMI and Launch Template version), the Auto Scaling Group updates instances gradually, not all at once.
+* Example: 4 instances are running, when New version deployed as follows: 
+  * Launch 1 new instance using the updated Launch Template
+  * Wait until the instance passes Target Group health checks
+  * Terminate 1 old instance
+  * Repeat the process until all instances are replaced
+
+* Key configuration:
+Minimum healthy instances: 50%, and ensures at least 2 instances are always serving traffic.
+  * Rolling update trigger: Launch Template version change(or)Triggered by Launch Template changes
+  * Health validation: ALB Target Group health checks
+
+* **Why This Strategy Is Used**
+    * Ensures zero downtime during deployments
+    * Prevents traffic drops and service interruptions
+    * Easy to manage using native Auto Scaling Group behavior
+---
+
+
