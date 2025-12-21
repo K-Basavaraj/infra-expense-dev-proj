@@ -1,3 +1,4 @@
+# creating instance
 module "backend" {
   source                 = "terraform-aws-modules/ec2-instance/aws"
   ami                    = data.aws_ami.devops.id
@@ -21,23 +22,21 @@ resource "null_resource" "backend" {
     instance_id = module.backend.id
   }
 
-  # Bootstrap script can run on any instance of the cluster
-  # So we just choose the first in this case
   connection {
-    host     = module.backend.private_ip
+    host     = module.backend.private_ip 
     type     = "ssh"
     user     = "ec2-user"
     password = "DevOps321"
   }
 
-  #what ever the script is present in local it will send it to terraform 
+  #what ever the script is present in local it will send it to backend server using terraform.
+  #using file provisioner it will send the script to terraform
   provisioner "file" {
-    source      = "${var.backend_tags.Component}.sh" #backend.sh
-    destination = "/tmp/backend.sh"                  #it will copy it to this loaction in the server 
+    source      = "${var.backend_tags.Component}.sh" #local file backend.sh in this 70-backned-app folder
+    destination = "/tmp/backend.sh"                  #it will copy and it to this loaction in the server 
   }
 
   provisioner "remote-exec" {
-    # Bootstrap script called with private_ip of each node in the cluster
     inline = [
       "chmod +x /tmp/backend.sh",                                                #execute access
       "sudo sh /tmp/backend.sh ${var.backend_tags.Component} ${var.environment}" #run the script arguments
